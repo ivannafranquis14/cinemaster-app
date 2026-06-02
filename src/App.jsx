@@ -788,28 +788,32 @@ function App() {
       : peliculasTendencia.filter(p => p.genero === categoriaSeleccionada)
   );
 
-  return (
+ return (
     <div className="min-h-screen bg-slate-950 text-white font-sans">
-      <nav className="flex items-center justify-between px-8 py-4 bg-slate-900 border-b border-slate-800">
+      <nav className="flex flex-col sm:flex-row items-center justify-between px-4 py-4 sm:px-8 bg-slate-900 border-b border-slate-800 gap-4 sm:gap-0">
+        
+        {/* 🎬 LOGO (Centrado en móvil, a la izquierda en pantallas más grandes) */}
         <div onClick={resetearHome} className="text-2xl font-black tracking-tighter text-cyan-400 cursor-pointer select-none">
           CINE<span className="text-white">MASTER</span>
         </div>
         
+        {/* MENÚ CENTRAL DE NAVEGACIÓN */}
         <div className="space-x-6 hidden md:flex font-medium text-slate-300">
           <button onClick={resetearHome} className={`transition ${seccionActiva === "inicio" ? "text-cyan-400 font-bold" : ""}`}>{t.inicio}</button>
           <button onClick={() => setSeccionActiva("tendencias")} className={`transition ${seccionActiva === "tendencias" ? "text-cyan-400 font-bold" : ""}`}>{t.tendencias}</button>
           <button onClick={() => setSeccionActiva("milista")} className={`transition ${seccionActiva === "milista" ? "text-cyan-400 font-bold" : ""}`}>{t.miLista} ({favoritos.length})</button>
         </div>
 
-        <div className="flex items-center space-x-4">
+        {/* 🌐 BOTONES (Contenedor fluido que nunca se va a desbordar en celulares) */}
+        <div className="flex items-center justify-center sm:justify-end space-x-2 sm:space-x-4 w-full sm:w-auto">
 
-          {/* 🌐 SELECTOR DE IDIOMA  */}
-          <div className="flex items-center space-x-2 bg-slate-800 border border-slate-700 rounded-xl px-2.5 py-1.5 focus-within:ring-2 focus-within:ring-cyan-500">
+          {/* 🌐 SELECTOR DE IDIOMA */}
+          <div className="flex items-center space-x-1.5 sm:space-x-2 bg-slate-800 border border-slate-700 rounded-xl px-2 sm:px-2.5 py-1.5 focus-within:ring-2 focus-within:ring-cyan-500">
             <span className="text-sm">🌐</span>
             <select 
               value={idioma} 
               onChange={(e) => setIdioma(e.target.value)} 
-              className="bg-transparent text-xs font-bold cursor-pointer text-slate-200 focus:outline-none pr-2"
+              className="bg-transparent text-[11px] sm:text-xs font-bold cursor-pointer text-slate-200 focus:outline-none pr-1 sm:pr-2"
               title="Cambiar idioma / Change language"
             >
               <option value="ES" className="bg-slate-900 text-white">Español (ES)</option>
@@ -818,14 +822,15 @@ function App() {
             </select>
           </div>
 
+          {/* 🚪 SECCIÓN DE USUARIO / BOTÓN INGRESAR */}
           {usuarioActivo ? (
-            <div className="flex items-center space-x-3 bg-slate-800/80 pl-3 pr-4 py-1.5 rounded-full border border-slate-700/60">
-              <div className="w-8 h-8 rounded-full bg-cyan-500 text-slate-950 font-bold flex items-center justify-center uppercase">{usuarioActivo.charAt(0)}</div>
-              <span className="text-sm font-semibold max-w-[120px] truncate">{usuarioActivo}</span>
-              <button onClick={manejarCerrarSesion} className="text-xs text-slate-400 hover:text-rose-400 ml-2">🚪</button>
+            <div className="flex items-center space-x-2 sm:space-x-3 bg-slate-800/80 pl-2.5 sm:pl-3 pr-3 sm:pr-4 py-1.5 rounded-full border border-slate-700/60">
+              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-cyan-500 text-slate-950 font-bold flex items-center justify-center uppercase text-xs sm:text-base">{usuarioActivo.charAt(0)}</div>
+              <span className="text-xs sm:text-sm font-semibold max-w-[90px] sm:max-w-[120px] truncate">{usuarioActivo}</span>
+              <button onClick={manejarCerrarSesion} className="text-xs text-slate-400 hover:text-rose-400 ml-1 sm:ml-2">🚪</button>
             </div>
           ) : (
-            <button onClick={() => setModalAbierto(true)} className="bg-cyan-600 hover:bg-cyan-500 text-white px-5 py-2 rounded-full font-bold transition">{t.ingresar}</button>
+            <button onClick={() => setModalAbierto(true)} className="bg-cyan-600 hover:bg-cyan-500 text-white text-xs sm:text-base px-4 sm:px-5 py-2 rounded-full font-bold transition whitespace-nowrap">{t.ingresar}</button>
           )}
         </div>
       </nav>
